@@ -1,0 +1,77 @@
+import { EducationLesson } from '../types';
+
+export const EDUCATION_LESSONS: EducationLesson[] = [
+  {
+    id: 'necessidade-vs-desejo',
+    title: 'Necessidade vs. Desejo: O Teste das 24 Horas',
+    tag: 'Consumo Consciente',
+    shortDesc: 'Aprenda a diferenciar o que você realmente precisa daquilo que é apenas impulso momentâneo.',
+    content: [
+      'Uma das maiores causas de descontrole financeiro é comprar por impulso emocional. Diferenciar necessidades de desejos é a base da saúde financeira.',
+      'Necessidades são itens essenciais para sobrevivência, estudo e trabalho: alimentação básica, moradia, transporte, material escolar e saúde.',
+      'Desejos são itens que trazem conforto, status ou prazer passageiro: aquela roupa da moda, lanches caros por aplicativo, jogos e eletrônicos de última geração.',
+      'Dica de ouro: aplique o "Teste das 24 Horas". Viu algo que não estava no planejamento? Espere 24 horas antes de passar o cartão. Se após um dia a vontade passar, era puro impulso!',
+    ],
+    keyTakeaway: 'Antes de comprar, pergunte-se: "Eu preciso disso hoje ou eu apenas quero isso agora?".',
+    practicalTip: 'Faça uma lista de compras antes de sair de casa ou abrir aplicativos e compre apenas o que estiver no papel.',
+  },
+  {
+    id: 'como-economizar',
+    title: 'Como Economizar: A Regra dos Potes (50/30/20)',
+    tag: 'Planejamento',
+    shortDesc: 'Um método simples e comprovado para jovens e famílias dividirem a renda e pouparem com constância.',
+    content: [
+      'Guardar dinheiro não precisa ser sacrifício, mas sim um hábito construído mês a mês. O método 50/30/20 é excelente para começar:',
+      '50% para Gastos Essenciais: contas de casa, supermercado, transporte e estudos.',
+      '30% para Qualidade de Vida e Lazer: passeios, pequenas comemorações e hobbies.',
+      '20% para o Futuro e Metas: reserva de emergência, viagens e grandes objetivos.',
+      'Se 20% for difícil no começo, comece guardando 5% ou 10%. O mais importante para estudantes e famílias é a regularidade, não o montante inicial!',
+    ],
+    keyTakeaway: 'Pague a si mesmo primeiro: guarde uma quantia assim que receber qualquer valor, antes de gastar com outras coisas.',
+    practicalTip: 'Defina um valor fixo semanal para guardar no cofrinho ou na meta do app logo no início da semana.',
+  },
+  {
+    id: 'planejamento-compras',
+    title: 'Planejamento de Compras e Pesquisa de Preços',
+    tag: 'Economia Prática',
+    shortDesc: 'Como usar a tecnologia e a comparação a seu favor para economizar até 30% nas compras.',
+    content: [
+      'Comprar sem pesquisar custa muito caro ao longo de um ano. A mesma mercadoria ou serviço pode ter variações de até 40% entre diferentes lojas.',
+      'Pesquise em comparadores online e monitore o histórico de preços para não cair em falsas promoções (como a "metade do dobro").',
+      'Para materiais escolares e roupas, planeje compras coletivas com amigos ou familiares para conseguir descontos no atacado.',
+      'Evite o parcelamento sem controle. Parcelas de R$ 30 ou R$ 50 acumulam e comprometem a renda dos meses seguintes.',
+    ],
+    keyTakeaway: 'Dinheiro economizado em uma compra bem pesquisada é dinheiro livre para suas metas principais.',
+    practicalTip: 'Sempre compare preços em pelo menos 3 lugares diferentes antes de fechar uma compra acima de R$ 100,00.',
+  },
+  {
+    id: 'metas-realistas',
+    title: 'Metas Realistas: O Método SMART Simplificado',
+    tag: 'Foco e Conquista',
+    shortDesc: 'Como transformar sonhos abstratos em planos de ação alcançáveis sem desanimar.',
+    content: [
+      'Dizer apenas "quero juntar dinheiro" não funciona porque não tem direção. Metas vencedoras seguem o método SMART:',
+      'Específica: defina exatamente o que quer (ex: "Notebook para estudos", e não "comprar algo legal").',
+      'Mensurável: defina o valor exato (ex: R$ 2.000,00).',
+      'Alcançável: adeque à sua realidade atual para não gerar frustração.',
+      'Relevante: precisa ter real significado para você ou sua família.',
+      'Com prazo (Temporal): coloque uma data limite (ex: "em 8 meses").',
+    ],
+    keyTakeaway: 'Divida grandes metas em pequenos degraus mensais. R$ 600 em 6 meses são R$ 100 por mês (apenas R$ 3,33 por dia)!',
+    practicalTip: 'Use a calculadora de economia mensal do "Meu Dinheiro em Dia" para descobrir quanto poupar por mês.',
+  },
+  {
+    id: 'consumo-consciente',
+    title: 'Consumo Consciente e Sustentabilidade Familiar',
+    tag: 'Educação Cidadã',
+    shortDesc: 'Entenda como o desperdício em casa afeta o bolso e o planeta.',
+    content: [
+      'Consumo consciente não é deixar de viver, é aproveitar melhor cada recurso sem desperdício.',
+      'Desperdício de energia elétrica (banhos demorados, aparelhos ligados em standby) e desperdício de comida no final da feira são vazamentos invisíveis de dinheiro.',
+      'Pratique os 5 Rs: Repensar o que compramos, Reduzir o consumo supérfluo, Reutilizar objetos, Reciclar materiais e Recusar produtos prejudiciais.',
+      'Converse abertamente sobre dinheiro em família. Quando filhos e pais planejam juntos uma meta (como uma viagem), todos colaboram felizes para economizar.',
+    ],
+    keyTakeaway: 'Cuidar dos pequenos gastos do dia a dia financia os grandes sonhos da família.',
+    practicalTip: 'Reúna a família ou grupo de estudos uma vez por mês para celebrar o progresso nas metas compartilhadas!',
+  },
+];

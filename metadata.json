@@ -1,0 +1,6 @@
+{
+  "name": "Meu Dinheiro em Dia",
+  "description": "Aplicativo de organização financeira, metas e consumo consciente com compartilhamento seguro de progresso.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

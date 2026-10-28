@@ -1,0 +1,125 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Default Deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper Primitives
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128;
+    }
+
+    // User Profile Rules
+    match /users/{userId} {
+      allow read, write: if isOwner(userId) && isValidId(userId);
+    }
+
+    // Private Goals Rules (Owner-only access, STRICTLY private monetary values)
+    match /goals/{goalId} {
+      allow get, list: if isSignedIn() && resource.data.ownerId == request.auth.uid;
+      
+      allow create: if isSignedIn() 
+        && isValidId(goalId)
+        && request.resource.data.ownerId == request.auth.uid
+        && request.resource.data.name is string 
+        && request.resource.data.name.size() > 0 
+        && request.resource.data.name.size() <= 120
+        && request.resource.data.targetAmount is number
+        && request.resource.data.targetAmount > 0
+        && request.resource.data.currentAmount is number
+        && request.resource.data.currentAmount >= 0;
+
+      allow update: if isSignedIn()
+        && resource.data.ownerId == request.auth.uid
+        && request.resource.data.ownerId == resource.data.ownerId
+        && request.resource.data.targetAmount is number
+        && request.resource.data.targetAmount > 0
+        && request.resource.data.currentAmount is number
+        && request.resource.data.currentAmount >= 0;
+
+      allow delete: if isSignedIn() && resource.data.ownerId == request.auth.uid;
+    }
+
+    // Private Movements / Transactions (Owner-only access)
+    match /movements/{movementId} {
+      allow get, list: if isSignedIn() && resource.data.ownerId == request.auth.uid;
+
+      allow create: if isSignedIn()
+        && isValidId(movementId)
+        && request.resource.data.ownerId == request.auth.uid
+        && request.resource.data.amount is number
+        && request.resource.data.amount > 0
+        && (request.resource.data.type == 'deposit' || request.resource.data.type == 'withdrawal');
+
+      allow update: if isSignedIn()
+        && resource.data.ownerId == request.auth.uid
+        && request.resource.data.ownerId == resource.data.ownerId;
+
+      allow delete: if isSignedIn() && resource.data.ownerId == request.auth.uid;
+    }
+
+    // Shared Goals Projection (Safe public projection - NO MONETARY VALUES ALLOWED)
+    match /shared_goals/{shareId} {
+      // Guests can only read if invited or possess valid invite code, and invite is not revoked
+      allow get: if isSignedIn() && (
+        resource.data.ownerId == request.auth.uid ||
+        (
+          resource.data.revoked == false && (
+            (resource.data.allowedGuestUids is list && request.auth.uid in resource.data.allowedGuestUids) ||
+            (request.auth.token.email != null && resource.data.allowedGuestEmails is list && request.auth.token.email in resource.data.allowedGuestEmails) ||
+            (resource.data.inviteCode is string && resource.data.inviteCode.size() > 0)
+          )
+        )
+      );
+
+      // Guests can query list of shared goals they are authorized on
+      allow list: if isSignedIn() && (
+        resource.data.ownerId == request.auth.uid ||
+        (resource.data.allowedGuestUids is list && request.auth.uid in resource.data.allowedGuestUids) ||
+        (request.auth.token.email != null && resource.data.allowedGuestEmails is list && request.auth.token.email in resource.data.allowedGuestEmails)
+      );
+
+      // Only the goal owner can create a shared projection
+      // AND it MUST NOT contain any private monetary fields!
+      allow create: if isSignedIn()
+        && isValidId(shareId)
+        && request.resource.data.ownerId == request.auth.uid
+        && !request.resource.data.keys().hasAny(['targetAmount', 'currentAmount', 'amount', 'balance', 'deposits', 'income', 'expenses'])
+        && request.resource.data.progressPercentage is number
+        && request.resource.data.progressPercentage >= 0
+        && request.resource.data.progressPercentage <= 100
+        && request.resource.data.remainingPercentage is number
+        && request.resource.data.remainingPercentage >= 0
+        && request.resource.data.remainingPercentage <= 100;
+
+      // Owner can update everything; guest can only register their UID in allowedGuestUids upon redeeming invite code
+      allow update: if isSignedIn() && (
+        // Owner full update
+        (
+          resource.data.ownerId == request.auth.uid &&
+          request.resource.data.ownerId == resource.data.ownerId &&
+          !request.resource.data.keys().hasAny(['targetAmount', 'currentAmount', 'amount', 'balance', 'deposits', 'income', 'expenses'])
+        ) ||
+        // Guest redeeming invite code
+        (
+          resource.data.revoked == false &&
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['allowedGuestUids']) &&
+          request.resource.data.allowedGuestUids is list
+        )
+      );
+
+      // Only owner can delete/revoke shared projection
+      allow delete: if isSignedIn() && resource.data.ownerId == request.auth.uid;
+    }
+  }
+}

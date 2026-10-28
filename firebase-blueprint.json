@@ -1,0 +1,95 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Perfil privado do usuário no sistema",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "displayName": { "type": "string", "maxLength": 100 },
+        "email": { "type": "string", "maxLength": 150 },
+        "photoURL": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["uid", "email"]
+    },
+    "Goal": {
+      "title": "Goal",
+      "description": "Meta financeira privada do proprietário com valores monetários",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "ownerId": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 120 },
+        "description": { "type": "string", "maxLength": 500 },
+        "targetAmount": { "type": "number" },
+        "currentAmount": { "type": "number" },
+        "deadline": { "type": "string", "maxLength": 30 },
+        "category": { "type": "string", "maxLength": 50 },
+        "color": { "type": "string", "maxLength": 30 },
+        "icon": { "type": "string", "maxLength": 30 },
+        "status": { "type": "string", "enum": ["active", "paused", "completed"] },
+        "createdAt": { "type": "string", "maxLength": 50 },
+        "updatedAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["id", "ownerId", "name", "targetAmount", "currentAmount", "status", "createdAt"]
+    },
+    "Movement": {
+      "title": "Movement",
+      "description": "Registro privado de movimentação (depósito ou retirada) de uma meta",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "goalId": { "type": "string", "maxLength": 128 },
+        "ownerId": { "type": "string", "maxLength": 128 },
+        "type": { "type": "string", "enum": ["deposit", "withdrawal"] },
+        "amount": { "type": "number" },
+        "description": { "type": "string", "maxLength": 200 },
+        "date": { "type": "string", "maxLength": 30 },
+        "createdAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["id", "goalId", "ownerId", "type", "amount", "date", "createdAt"]
+    },
+    "SharedGoal": {
+      "title": "SharedGoal",
+      "description": "Projeção pública segura de uma meta para convidados. Não contém valores monetários em R$ nem histórico financeiro.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "goalId": { "type": "string", "maxLength": 128 },
+        "ownerId": { "type": "string", "maxLength": 128 },
+        "ownerDisplayName": { "type": "string", "maxLength": 100 },
+        "publicTitle": { "type": "string", "maxLength": 120 },
+        "progressPercentage": { "type": "number" },
+        "remainingPercentage": { "type": "number" },
+        "status": { "type": "string", "enum": ["active", "paused", "completed"] },
+        "encouragementMessage": { "type": "string", "maxLength": 300 },
+        "inviteCode": { "type": "string", "maxLength": 32 },
+        "allowedGuestEmails": { "type": "array" },
+        "allowedGuestUids": { "type": "array" },
+        "revoked": { "type": "boolean" },
+        "createdAt": { "type": "string", "maxLength": 50 },
+        "updatedAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["id", "goalId", "ownerId", "publicTitle", "progressPercentage", "remainingPercentage", "revoked", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Perfis de usuários privados"
+    },
+    "/goals/{goalId}": {
+      "schema": "Goal",
+      "description": "Metas financeiras privadas com valores monetários"
+    },
+    "/movements/{movementId}": {
+      "schema": "Movement",
+      "description": "Histórico de movimentações financeiras privadas"
+    },
+    "/shared_goals/{shareId}": {
+      "schema": "SharedGoal",
+      "description": "Projeções públicas sem valores financeiros para compartilhamento com convidados"
+    }
+  }
+}
