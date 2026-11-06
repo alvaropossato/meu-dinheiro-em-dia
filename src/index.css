@@ -36,6 +36,12 @@
   }
 }
 
+/* Suporte a classes utilitárias para dark mode se necessário */
+.dark bg-white { background-color: var(--color-surface) !important; }
+.dark text-\[\#202124\] { color: var(--color-text-main) !important; }
+.dark text-\[\#707782\] { color: var(--color-text-muted) !important; }
+.dark border-\[\#E7E9ED\] { border-color: var(--color-border) !important; }
+
 /* Ocultar globalmente o badge do Lovable */
 #lovable-badge {
   display: none !important;

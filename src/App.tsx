@@ -419,7 +419,7 @@ function MainApp() {
       </main>
 
       {/* Rodapé Educativo */}
-      <footer className="mt-auto border-t border-[#E7E9ED] bg-white py-6 text-center text-xs text-[#707782]">
+      <footer className="mt-auto border-t border-[#E7E9ED] dark:border-[#2D2D38] bg-white dark:bg-[#1E1E24] py-6 text-center text-xs text-[#707782] dark:text-[#9CA3AF]">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
             <BrandLogo size={28} />
@@ -567,7 +567,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <div className={theme === 'dark' ? 'dark min-h-screen bg-[#121214] text-[#F3F4F6]' : 'min-h-screen bg-[#F7F8FA] text-[#202124]'}>
-      {React.cloneNode(children as React.ReactElement, { theme, toggleTheme })}
+      {React.Children.map(children, (child) =>
+        React.isValidElement(child) ? React.cloneNode(child, { theme, toggleTheme } as any) : child
+      )}
     </div>
   );
 }
