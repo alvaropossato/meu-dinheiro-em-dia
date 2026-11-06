@@ -8,6 +8,8 @@ import {
   LogOut,
   LogIn,
   BookOpen,
+  Sun,
+  Moon,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { PWAInstallButton } from './PWAInstallButton';
@@ -20,6 +22,8 @@ interface NavbarProps {
   onSelectTab: (tab: AppTab) => void;
   onOpenAuth: () => void;
   sharedCount?: number;
+  theme?: 'light' | 'dark';
+  toggleTheme?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -27,6 +31,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   onSelectTab,
   onOpenAuth,
   sharedCount = 0,
+  theme,
+  toggleTheme,
 }) => {
   const { user, userProfile, logout } = useAuth();
 
@@ -93,6 +99,18 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Right User Actions & PWA Install */}
           <div className="flex items-center gap-2.5 shrink-0">
+            {toggleTheme && (
+              <button
+                type="button"
+                onClick={toggleTheme}
+                className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer"
+                aria-label="Alternar tema"
+                title="Alternar tema claro/escuro"
+              >
+                {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-700" />}
+              </button>
+            )}
+
             <PWAInstallButton />
 
             {user ? (

@@ -544,10 +544,40 @@ function MainApp() {
   );
 }
 
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    const saved = localStorage.getItem('md_theme');
+    if (saved === 'dark' || saved === 'light') return saved;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+    localStorage.setItem('md_theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+  };
+
+  return (
+    <div className={theme === 'dark' ? 'dark min-h-screen bg-[#121214] text-[#F3F4F6]' : 'min-h-screen bg-[#F7F8FA] text-[#202124]'}>
+      {React.cloneNode(children as React.ReactElement, { theme, toggleTheme })}
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <AuthProvider>
-      <MainApp />
+      <ThemeProvider>
+        <MainApp />
+      </ThemeProvider>
     </AuthProvider>
   );
 }

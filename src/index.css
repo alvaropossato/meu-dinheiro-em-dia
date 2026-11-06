@@ -14,10 +14,23 @@
     --color-alert: #D92D20;
   }
 
+  .dark {
+    --color-primary: #FF7A1A;
+    --color-primary-hover: #FF6B00;
+    --color-primary-soft: #331A0D;
+    --color-bg-base: #121214;
+    --color-surface: #1E1E24;
+    --color-text-main: #F3F4F6;
+    --color-text-muted: #9CA3AF;
+    --color-border: #2D2D38;
+    --color-success: #22C55E;
+    --color-alert: #EF4444;
+  }
+
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: #F7F8FA;
-    color: #202124;
+    background-color: var(--color-bg-base);
+    color: var(--color-text-main);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }

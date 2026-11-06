@@ -15,6 +15,8 @@ import {
   CheckCircle2,
   Info,
   ExternalLink,
+  Sun,
+  Moon,
 } from 'lucide-react';
 import { usePWAInstall } from '../hooks/usePWAInstall';
 import { BrandLogo } from './BrandLogo';
@@ -28,11 +30,15 @@ import {
 interface SettingsViewProps {
   onDataChanged: () => void;
   onOpenPrivacyTerms: () => void;
+  theme?: 'light' | 'dark';
+  toggleTheme?: () => void;
 }
 
 export const SettingsView: React.FC<SettingsViewProps> = ({
   onDataChanged,
   onOpenPrivacyTerms,
+  theme,
+  toggleTheme,
 }) => {
   const { isInstallable, isInstalled, isIOS, install } = usePWAInstall();
   const [activeGuideTab, setActiveGuideTab] = useState<'android' | 'ios' | 'pc'>('android');
