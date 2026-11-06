@@ -36,6 +36,11 @@
   }
 }
 
+/* Ocultar globalmente o badge do Lovable */
+#lovable-badge {
+  display: none !important;
+}
+
 /* Custom scrollbar and accessibility adjustments */
 @media (prefers-reduced-motion: reduce) {
   * {
