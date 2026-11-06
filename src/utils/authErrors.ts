@@ -15,9 +15,10 @@ export function getFirebaseAuthErrorMessage(error: any): { title: string; messag
       };
 
     case 'auth/configuration-not-found':
+    case 'auth/cancelled-popup-request':
       return {
-        title: 'Configuração pendente',
-        message: 'A configuração das chaves de API deste provedor (ex: Apple, Facebook ou Microsoft) ainda não foi finalizada no Firebase Console.',
+        title: 'Configuração pendente ou solicitação cancelada',
+        message: 'A configuração do Facebook Login (App ID e App Secret) precisa estar ativa no Firebase Console (Authentication > Sign-in method > Facebook).',
         requiresConsoleSetup: true,
       };
 

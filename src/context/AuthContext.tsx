@@ -120,6 +120,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setAuthError(null);
     try {
       const provider = new FacebookAuthProvider();
+      provider.addScope('email');
+      provider.addScope('public_profile');
       await signInWithPopup(auth, provider);
       return true;
     } catch (error: any) {
