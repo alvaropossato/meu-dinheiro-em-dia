@@ -194,6 +194,17 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
             );
           })}
+          {user && (
+            <button
+              type="button"
+              onClick={() => logout()}
+              className="flex flex-col items-center gap-1 py-1 px-2 rounded-lg transition-colors cursor-pointer text-[#707782] hover:text-[#D92D20]"
+              title="Sair do aplicativo"
+            >
+              <LogOut className="w-4 h-4 text-[#D92D20]" />
+              <span>Sair</span>
+            </button>
+          )}
         </div>
       </div>
     </header>
