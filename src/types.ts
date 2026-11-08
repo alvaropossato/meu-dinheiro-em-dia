@@ -82,6 +82,7 @@ export interface Transaction {
   date: string; // YYYY-MM-DD
   paymentMethod?: 'pix' | 'dinheiro' | 'cartao_debito' | 'cartao_credito' | 'transferencia' | 'outro';
   notes?: string;
+  receiptImage?: string;
   isDemo?: boolean;
   createdAt: string;
 }

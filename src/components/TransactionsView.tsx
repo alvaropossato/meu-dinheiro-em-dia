@@ -340,6 +340,14 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
                           <span className="italic text-[#707782]/80 truncate max-w-[200px]">"{tx.notes}"</span>
                         </>
                       )}
+                      {tx.receiptImage && (
+                        <>
+                          <span>•</span>
+                          <span className="px-2 py-0.5 bg-[#FFF1E7] text-[#FF6B00] rounded-md text-[10px] font-bold flex items-center gap-1">
+                            📸 Recibo Anexado
+                          </span>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>
