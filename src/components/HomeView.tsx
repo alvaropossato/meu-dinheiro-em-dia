@@ -100,6 +100,23 @@ export const HomeView: React.FC<HomeViewProps> = ({
               <span>+ Entrada</span>
             </button>
 
+            <label className="h-11 px-4 bg-[#FFF1E7] hover:bg-[#FFE8D6] text-[#FF6B00] border border-[#FF6B00]/30 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer active:scale-[0.98]">
+              <input
+                type="file"
+                accept="image/*"
+                capture="environment"
+                className="hidden"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    onOpenNewTransaction('expense');
+                  }
+                }}
+              />
+              <span className="text-sm">📸</span>
+              <span>Fotografar Recibo</span>
+            </label>
+
             <button
               type="button"
               onClick={() => onOpenNewTransaction('expense')}
